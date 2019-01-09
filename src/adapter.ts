@@ -68,7 +68,7 @@ export default class TypeORMAdapter implements Adapter {
      * loadPolicy loads all policy rules from the storage.
      */
     public async loadPolicy(model: Model) {
-        const lines = await CasbinRule.find();
+        const lines = await this.typeorm.getRepository(CasbinRule).find();
         for (const line of lines) {
             this.loadPolicyLine(line, model);
         }

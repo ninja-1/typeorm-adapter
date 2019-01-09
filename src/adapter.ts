@@ -134,7 +134,7 @@ export default class TypeORMAdapter implements Adapter {
      */
     public async addPolicy(sec: string, ptype: string, rule: string[]) {
         const line = this.savePolicyLine(ptype, rule);
-        await line.save();
+        await this.typeorm.getRepository(CasbinRule).save(line);
     }
 
     /**
@@ -142,7 +142,7 @@ export default class TypeORMAdapter implements Adapter {
      */
     public async removePolicy(sec: string, ptype: string, rule: string[]) {
         const line = this.savePolicyLine(ptype, rule);
-        await CasbinRule.delete(line);
+        await this.typeorm.getRepository(CasbinRule).delete(line);
     }
 
     /**
@@ -172,6 +172,6 @@ export default class TypeORMAdapter implements Adapter {
             line.v5 = fieldValues[5 - fieldIndex];
         }
 
-        await CasbinRule.delete(line);
+        await this.typeorm.getRepository(CasbinRule).delete(line);
     }
 }
